@@ -84,8 +84,9 @@ class Subtitles extends React.Component {
         //help delay
         var time = this.props.time+0.05;
         var playing = this.props.playing
+        var _this = this;
         return (
-            <div>
+            <div className="transcript">
                 {this.state.words.map(function(word,index,array) {
                     var className = "";
                     //check to see if this is the newest word by checking the next one
@@ -97,7 +98,7 @@ class Subtitles extends React.Component {
                         }
                     }
                         return (
-                            <span key={word.word+word.start} className={className}>
+                            <span key={word.start+"+"+word.word} className={className} onClick={_this.handleClick.bind( this , word.start)}>
                                 {word.word+" "}
                             </span>
                         );
@@ -105,6 +106,10 @@ class Subtitles extends React.Component {
                 })}
             </div>
         )
+    }
+    //set the player to chosen time
+    handleClick(stamp){
+        document.getElementById('audioplayer').currentTime = stamp
     }
     //explode and parse the transcript file
     parseFileData(data){

@@ -195,9 +195,10 @@
 	            //help delay
 	            var time = this.props.time + 0.05;
 	            var playing = this.props.playing;
+	            var _this = this;
 	            return _react2.default.createElement(
 	                'div',
-	                null,
+	                { className: 'transcript' },
 	                this.state.words.map(function (word, index, array) {
 	                    var className = "";
 	                    //check to see if this is the newest word by checking the next one
@@ -210,11 +211,18 @@
 	                    }
 	                    return _react2.default.createElement(
 	                        'span',
-	                        { key: word.word + word.start, className: className },
+	                        { key: word.start + "+" + word.word, className: className, onClick: _this.handleClick.bind(this, word.start) },
 	                        word.word + " "
 	                    );
 	                })
 	            );
+	        }
+	        //set the player to chosen time
+	
+	    }, {
+	        key: 'handleClick',
+	        value: function handleClick(stamp) {
+	            document.getElementById('audioplayer').currentTime = stamp;
 	        }
 	        //explode and parse the transcript file
 	
